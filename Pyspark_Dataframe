@@ -20,4 +20,4 @@ res=orders.join(order_item, orders.order_id == order_item.order_item_order_id, h
 res.count()
 res.show(10,False)
 res.write.format("csv").save("Your HDFS directory")  //Save the result into HFDS 
-res.saveAsTable("eeim.bd_train_res") 	//Save the result as hive table
+res.saveAsTable("bd_train_res") 	//Save the result as hive table
