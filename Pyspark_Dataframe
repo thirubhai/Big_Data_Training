@@ -1,0 +1,1 @@
+pyspark --jars /opt/data/share01/spark-1.6.0-bin-hadoop2.6/lib/spark-csv_2.10-1.4.0.jar,/opt/data/share01/spark-1.6.0-bin-hadoop2.6/lib/commons-csv-1.2.jar,/usr/hdp/current/spark-client/lib/datanucleus-api-jdo-3.2.6.jar
