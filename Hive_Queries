@@ -1,8 +1,8 @@
 create table bd_train(order_id int, order_date string, cust_order_id int, order_status string) row format delimited fields terminated by ',';
 
-load data inpath '/sandbox/sandbox8/tk9035/tmp/data-master/retail_db/orders/part-00000' into table bd_train;
+load data inpath 'your hdfs location' into table bd_train;
 
-hive> select * from eeim.bd_train limit 10;
+hive> select * from bd_train limit 10;
 OK
 1	2013-07-25 00:00:00.0	11599	CLOSED
 2	2013-07-25 00:00:00.0	256	PENDING_PAYMENT
