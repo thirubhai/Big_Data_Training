@@ -1,1 +1,23 @@
 pyspark --jars /opt/data/share01/spark-1.6.0-bin-hadoop2.6/lib/spark-csv_2.10-1.4.0.jar,/opt/data/share01/spark-1.6.0-bin-hadoop2.6/lib/commons-csv-1.2.jar,/usr/hdp/current/spark-client/lib/datanucleus-api-jdo-3.2.6.jar
+
+
+sqlContext.sql("use Your Database")
+orders=sqlContext.sql("select * from bd_train")
+orders.show(10,False)
+orders.printSchema()
+orders.count()
+orders.select('order_id').distinct().show(10,False)
+orders=orders.filter('order_status="COMPLETE" ')
+orders.count()
+
+order_item=sqlContext.sql("select * from bd_orders_items")
+order_item.show(10,False)
+order_item.printSchema()
+order_item.count()
+order_item.select('order_item_order_id').distinct().show(10,False)
+
+res=orders.join(order_item, orders.order_id == order_item.order_item_order_id, how='leftouter')
+res.count()
+res.show(10,False)
+res.write.format("csv").save("Your HDFS directory")  //Save the result into HFDS 
+res.saveAsTable("eeim.bd_train_res") 	//Save the result as hive table
