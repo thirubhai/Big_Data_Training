@@ -15,4 +15,4 @@ ssc.start()
 ssc.awaitTermination
 
 
-nc -l 5555
+#nc -l 5555 -  RealTime Streaming Words (i.e. strings) will be coming in via a network socket connection from a simple Netcat tool 
