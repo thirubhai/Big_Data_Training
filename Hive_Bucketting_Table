@@ -1,0 +1,10 @@
+#Create table with Partition Column and bucketting column and no. of buckets
+
+create table bd_order_partitioned_bucket(order_id int, cust_order_id int, order_status string) 
+partitioned by (order_date string) clustered by (order_status) into 4 buckets row format delimited fields terminated by ',';
+
+#Load the data from existing managed table
+insert overwrite table bd_order_partitioned_bucket partition(order_date) select * from bd_orders;
+
+#Verify the bucketting files from your hdfs location.
+hdfs dfs -ls /your_hdfs_location/bd_order_partitioned_bucket/order_date=2014-07-24
