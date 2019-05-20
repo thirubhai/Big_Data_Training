@@ -1,0 +1,39 @@
+#Create one Managed Table as below
+
+create table bd_orders as select order_id, cust_order_id, order_status,substr(order_date, 1, 10) as order_date 
+from database.bd_train;
+
+#Create Partitioned Table as below
+
+create table bd_order_partitioned(order_id int, cust_order_id int, order_status string) 
+partitioned by (order_date string)row format delimited fields terminated by ',';
+
+#Load the data into Partitioned table
+insert overwrite table bd_order_partitioned_2 partition(order_date) select * from bd_orders;
+
+show partitions bd_order_partitioned_2;
+order_date=2014-07-22
+order_date=2014-07-23
+order_date=2014-07-24
+
+To show the partitions
+	show partitions table_name
+To add the partition maually
+	alter table table_name add partition(dt='2019-05-17')
+To delete the partitions
+	alter table table_name drop partition(dt='2019-05-11')
+
+To retrive the data from one partition
+
+hive> select * from bd_order_partitioned_2 where order_date='2014-07-24' limit 10;
+OK
+57595	9102	COMPLETE	2014-07-24
+57596	2634	PENDING_PAYMENT	2014-07-24
+57597	4574	PENDING_PAYMENT	2014-07-24
+57598	138	PENDING	2014-07-24
+57599	4500	PENDING_PAYMENT	2014-07-24
+57600	11876	PROCESSING	2014-07-24
+57601	1046	ON_HOLD	2014-07-24
+57602	5033	PAYMENT_REVIEW	2014-07-24
+57603	10713	COMPLETE	2014-07-24
+57604	11274	PENDING	2014-07-24
