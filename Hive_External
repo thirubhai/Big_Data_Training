@@ -1,0 +1,16 @@
+create external table bd_departments(product_id int, product_name string)
+row format delimited fields terminated by ',' 
+location '/sandbox/sandbox8/tk9035/tmp/bd_department';
+
+desc formatted bd_departments;
+
+load data inpath '/sandbox/sandbox8/tk9035/tmp/data-master/retail_db/departments/part-00000' into table bd_departments;
+
+hive> select * from bd_departments;
+OK
+2	Fitness
+3	Footwear
+4	Apparel
+5	Golf
+6	Outdoors
+7	Fan Shop
